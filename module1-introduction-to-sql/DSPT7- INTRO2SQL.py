@@ -25,7 +25,9 @@ q3 = get_data('SELECT COUNT(character_ptr_id) FROM charactercreator_fighter;', c
 q4 = get_data('SELECT COUNT(character_ptr_id) FROM charactercreator_mage;', conn)
 q5 = get_data('SELECT COUNT(mage_ptr_id) FROM charactercreator_necromancer;', conn)
 q6 = get_data('SELECT COUNT(character_ptr_id) FROM charactercreator_thief;', conn)
-q7 = get_data('SELECT COUNT(character_ptr_id) FROM charactercreator_cleric;', conn)
+q7 = get_data('SELECT character_id, COUNT(DISTINCT id) as num_of_items '+
+              'FROM charactercreator_character_inventory GROUP BY '+
+              'character_id LIMIT 20;', conn)
 q8 = get_data('SELECT COUNT(character_ptr_id) FROM charactercreator_cleric;', conn)
 
 print('Number of Characters : ' + str(q['COUNT(character_id)'][0]))
@@ -38,8 +40,8 @@ print('Number of Thieves : ' + str(q6['COUNT(character_ptr_id)'][0]))
 
 print('Total Items: ' + str(q0['COUNT(item_id)'][0]))
 print('Distinct Items: ' + str(q1['COUNT(DISTINCT item_id)'][0]))
-
-print('Question 7 : ' + str(q7['COUNT(character_ptr_id)'][0]))
+print('Table with first 20 Characters and their number of items:')
+print(q7)
 print('Question 8 : ' + str(q8['COUNT(character_ptr_id)'][0]))
 
 
